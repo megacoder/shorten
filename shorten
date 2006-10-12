@@ -1,0 +1,20 @@
+#!/bin/awk -f
+# vim: ts=8 sw=8
+
+BEGIN	{
+	margin = 76
+}
+{
+	while( length > margin )	{
+		if( match( substr( $0, 1, margin ), /[ \t][^ \t]*$/ ) <= 0 ) {
+			RSTART = margin + 1
+		}
+		printf "%-*.*s \\\n", margin, RSTART, $0
+		$0 = substr( $0, RSTART + 1 )
+	}
+	if( length )	{
+		print
+	}
+}
+END	{
+}
